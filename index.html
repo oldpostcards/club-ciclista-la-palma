@@ -80,6 +80,11 @@
   .cmp .fill{position:absolute;left:0;top:0;bottom:0;background:var(--acc2);border-radius:5px}
   .cmp .avg{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);opacity:.55}
   .cmp .val{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+  .cron p{margin:4px 0 0;max-width:75ch}
+  .cron .titular{font:800 22px/1.2 "Barlow Condensed",sans-serif;margin:0}
+  .cron h3.sub{margin:16px 0 4px;font-size:16px;color:var(--acc2)}
+  .coach{margin:12px 0;padding:12px 14px;border-left:4px solid var(--acc);background:var(--soft);border-radius:8px}
+  .coach b{display:block;font:600 12.5px Inter;text-transform:uppercase;letter-spacing:.4px;color:var(--acc);margin-bottom:4px}
   .texto p{margin:6px 0}
   .texto li{margin:3px 0}
   footer{margin-top:34px;font-size:12.5px;color:var(--muted)}
@@ -95,8 +100,24 @@
     </svg>
     <h1>Club Ciclista La Palma</h1>
     <p>La Palma del Condado (Huelva) · <span id="nsocios"></span> socios · Actualizado el <span id="upd1"></span></p>
-    <nav class="menu"><a href="#temporada">Temporada 2026</a><a href="#semana">Semana a semana</a><a href="#analisis">Análisis por socio</a></nav>
+    <nav class="menu"><a href="#cronica">Crónica semanal</a><a href="#temporada">Temporada 2026</a><a href="#semana">Semana a semana</a><a href="#analisis">Análisis por socio</a></nav>
   </header>
+
+  <!-- ===== CRÓNICA SEMANAL (la escribe el agente cada lunes en analisis.js) ===== -->
+  <section class="blk" id="cronica" hidden>
+    <h2>Crónica semanal</h2>
+    <p class="note">Cada lunes el agente analiza la semana de todos los socios. Elige una semana para ver su crónica.</p>
+    <div class="pills" id="cronWeeks" role="group" aria-label="Elegir semana de la crónica"></div>
+    <div class="ficha cron">
+      <p class="titular" id="cronTit"></p>
+      <h3 class="sub">El club</h3><p id="cronClub"></p>
+      <h3 class="sub">Destacados</h3><p id="cronDest"></p>
+      <h3 class="sub">Quién sube y quién baja</h3><p id="cronTend"></p>
+      <h3 class="sub">Consejo del entrenador</h3><p id="cronCons"></p>
+      <p class="legend" id="cronFuente"></p>
+      <div class="legend">El comentario de cada socio está en «Análisis por socio».</div>
+    </div>
+  </section>
 
   <!-- ===== TEMPORADA ===== -->
   <section class="blk" id="temporada">
@@ -161,6 +182,7 @@
 </div>
 
 <script src="datos.js"></script>
+<script src="analisis.js" onerror="window.CLUB_ANALISIS=null"></script>
 <script>
 const D = window.CLUB_DATOS;
 const $ = s => document.querySelector(s);
@@ -285,6 +307,8 @@ function verSocio(n, scroll){
   if(!r.ok){ f.append(el("p",null,"Su perfil de Strava no deja ver sus estadísticas, así que no aparece en las clasificaciones del año.")); if(scroll) $("#analisis").scrollIntoView({behavior:"smooth"}); return; }
   if(r.km===0){ f.append(el("p",null,"No tiene salidas en bici registradas en Strava en 2026.")); if(scroll) $("#analisis").scrollIntoView({behavior:"smooth"}); return; }
   const tags=el("div"); perfil(r).forEach((t,i)=>tags.append(el("span","tag"+(i? "":" o"),t))); f.append(tags);
+  const nota = CRON[0] && CRON[0].socios && CRON[0].socios[n];
+  if(nota){ const c=el("div","coach"); c.append(el("b",null,`Comentario del entrenador · semana ${CRON[0].rango}`), document.createTextNode(nota)); f.append(c); }
   const N=ACTIVOS.length, ranks=el("div","ranks");
   [["km",nf(r.km,0)+" km","en kilómetros"],["h",hm(r.min),"en horas"],["d",nf(r.d,0)+" m","en desnivel"]].forEach(([k,v,t])=>{
     const c=el("div","rank"); c.append(el("b",null,"#"+RK[k].get(n)), el("span",null," "+v), el("small",null,`${t} de ${N} socios`)); ranks.append(c);
@@ -316,6 +340,20 @@ function verSocio(n, scroll){
   if(scroll) $("#analisis").scrollIntoView({behavior:"smooth"});
 }
 
+/* ---------- Crónica semanal ---------- */
+const CRON = (window.CLUB_ANALISIS && Array.isArray(window.CLUB_ANALISIS.SEMANAS)) ? window.CLUB_ANALISIS.SEMANAS : [];
+let cronSel = CRON[0];
+function pintarCronica(){
+  if(!CRON.length) return;
+  $("#cronica").hidden=false;
+  const wb=$("#cronWeeks"); wb.innerHTML="";
+  CRON.forEach((s,i)=>{const b=el("button",null,(i? "":"Última · ")+s.rango); b.setAttribute("aria-pressed", s===cronSel); b.onclick=()=>{cronSel=s; pintarCronica();}; wb.append(b);});
+  $("#cronTit").textContent=cronSel.titular||"";
+  $("#cronClub").textContent=cronSel.club||"—"; $("#cronDest").textContent=cronSel.destacados||"—";
+  $("#cronTend").textContent=cronSel.tendencias||"—"; $("#cronCons").textContent=cronSel.consejo||"—";
+  $("#cronFuente").textContent=cronSel.fuentes||"";
+}
+
 /* ---------- Arranque ---------- */
 $("#nsocios").textContent=SOCIOS.length; $("#upd1").textContent=fecha(D.ACTUALIZADO);
 document.querySelectorAll("#metrica button").forEach(b=>b.onclick=()=>{metrica=b.dataset.k; ordenA={k:metrica,asc:false}; pintarTablaAnual();});
@@ -325,7 +363,7 @@ $("#qa").oninput=pintarTablaAnual; $("#q").oninput=pintarTablaSemana;
 const sel=$("#selSocio");
 [...ANUAL].sort((a,b)=>(b.km??-1)-(a.km??-1)).forEach(r=>{const o=el("option",null,r.n); o.value=r.n; sel.append(o);});
 sel.onchange=()=>verSocio(sel.value,false);
-pintarTemporada(); pintarSemana(); verSocio(sel.options[0].value,false);
+pintarCronica(); pintarTemporada(); pintarSemana(); verSocio(sel.options[0].value,false);
 </script>
 </body>
 </html>
