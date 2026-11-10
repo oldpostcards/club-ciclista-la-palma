@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Club Ciclista La Palma · Estadísticas semanales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f4ef; --card:#fff; --ink:#1d1f1c; --muted:#6b6f68; --line:#e4e0d6;
+    --acc:#e2571c; --acc2:#1f6f4a; --soft:#fbe9df; --soft2:#e3f1e9; --gold:#d4a017; --silver:#9aa1a6; --bronze:#b8733d;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#161816; --card:#1f221f; --ink:#ecebe6; --muted:#a3a69e; --line:#30342f; --soft:#3a2418; --soft2:#173326; --acc2:#4cb184; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,system-ui,sans-serif}
+  .wrap{max-width:1060px;margin:0 auto;padding:20px 16px 48px}
+  header.hero{background:linear-gradient(120deg,#1f6f4a,#174f36);color:#fff;border-radius:18px;padding:22px 22px 18px;position:relative;overflow:hidden}
+  header.hero svg.road{position:absolute;right:-20px;bottom:-10px;opacity:.18;width:260px}
+  .hero h1{font:800 34px/1 "Barlow Condensed",sans-serif;letter-spacing:.5px;margin:0 0 4px;text-transform:uppercase}
+  .hero p{margin:0;opacity:.85}
+  nav.menu{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+  nav.menu a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.45);border-radius:999px;padding:6px 13px;font:600 13px Inter}
+  nav.menu a:hover{background:rgba(255,255,255,.15)}
+  .pills{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 12px}
+  .pills button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 14px;font:600 13px Inter;cursor:pointer}
+  .pills button[aria-pressed="true"]{background:var(--acc2);color:#fff;border-color:var(--acc2)}
+  .note{font-size:13px;color:var(--muted);margin:0 2px 10px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:12px 0 4px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .kpi b{display:block;font:800 30px/1.1 "Barlow Condensed",sans-serif}
+  .kpi span{color:var(--muted);font-size:13px}
+  section.blk{margin-top:34px;scroll-margin-top:12px}
+  h2{font:800 26px "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.4px;margin:0 0 4px}
+  h3.sub{font:800 19px "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.3px;margin:22px 0 8px}
+  .podios{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+  .podio{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .podio h4{margin:0 0 8px;font:600 12.5px Inter;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+  .podio ol{list-style:none;margin:0;padding:0}
+  .podio li{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--line)}
+  .podio li:first-child{border-top:0}
+  .medal{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:700 12px Inter;color:#fff;flex:none}
+  .m1{background:var(--gold)}.m2{background:var(--silver)}.m3{background:var(--bronze)}
+  .podio .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .podio .v{font-weight:600;font-variant-numeric:tabular-nums}
+  .tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+  .tools input,.tools select{flex:1;min-width:180px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit}
+  .tablebox{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:auto;max-height:620px}
+  table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+  th,td{padding:9px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
+  th{font:600 12px Inter;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;cursor:pointer;user-select:none;position:sticky;top:0;background:var(--card);z-index:1}
+  th[aria-sort]::after{content:" ▾";color:var(--acc)}
+  th[aria-sort="ascending"]::after{content:" ▴"}
+  th:nth-child(1),td:nth-child(1){text-align:center;width:44px}
+  th:nth-child(2),td:nth-child(2){text-align:left}
+  tbody tr:last-child td{border-bottom:0}
+  #tablaAnual tbody tr{cursor:pointer}
+  #tablaAnual tbody tr:hover td{background:var(--soft2)}
+  .bar{display:inline-block;height:6px;border-radius:3px;background:var(--acc);vertical-align:middle;margin-right:8px;opacity:.8}
+  .main{min-width:170px}
+  .tag{display:inline-block;font:600 11.5px Inter;padding:2px 8px;border-radius:999px;background:var(--soft2);color:var(--acc2);margin-left:4px}
+  .tag.o{background:var(--soft);color:var(--acc)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:13px}
+  .chip.on{border-color:var(--acc2);color:var(--acc2);font-weight:600}
+  .legend{font-size:13px;color:var(--muted);margin:6px 2px 10px}
+  /* análisis */
+  .ficha{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+  .ficha h4{font:800 26px/1.1 "Barlow Condensed",sans-serif;margin:0 0 6px}
+  .ranks{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
+  .rank{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+  .rank b{font:800 26px/1 "Barlow Condensed",sans-serif;color:var(--acc)}
+  .rank small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+  .rank span{font-size:14px;font-weight:600}
+  .cmp{margin:8px 0 14px}
+  .cmp .row{display:grid;grid-template-columns:150px 1fr 90px;gap:10px;align-items:center;padding:5px 0;font-size:13.5px}
+  .cmp .track{position:relative;height:10px;background:var(--line);border-radius:5px}
+  .cmp .fill{position:absolute;left:0;top:0;bottom:0;background:var(--acc2);border-radius:5px}
+  .cmp .avg{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);opacity:.55}
+  .cmp .val{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+  .texto p{margin:6px 0}
+  .texto li{margin:3px 0}
+  footer{margin-top:34px;font-size:12.5px;color:var(--muted)}
+  @media (max-width:560px){ .hero h1{font-size:28px} th,td{padding:8px 7px} .main{min-width:120px} .cmp .row{grid-template-columns:110px 1fr 70px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <svg class="road" viewBox="0 0 200 120" fill="none" stroke="#fff" stroke-width="6" aria-hidden="true">
+      <circle cx="45" cy="80" r="32"/><circle cx="155" cy="80" r="32"/>
+      <path d="M45 80 L80 35 L130 35 L155 80 M80 35 L105 80 L45 80 M105 80 L130 35 M72 25 h20 M125 22 l8 13"/>
+    </svg>
+    <h1>Club Ciclista La Palma</h1>
+    <p>La Palma del Condado (Huelva) · <span id="nsocios"></span> socios · Actualizado el <span id="upd1"></span></p>
+    <nav class="menu"><a href="#temporada">Temporada 2026</a><a href="#semana">Semana a semana</a><a href="#analisis">Análisis por socio</a></nav>
+  </header>
+
+  <!-- ===== TEMPORADA ===== -->
+  <section class="blk" id="temporada">
+    <h2>Temporada 2026</h2>
+    <p class="note" id="tempNote"></p>
+    <div class="kpis" id="kpisAnual"></div>
+    <h3 class="sub">Podios del año</h3>
+    <div class="podios" id="podiosAnual"></div>
+    <h3 class="sub">Clasificación anual</h3>
+    <div class="pills" id="metrica" role="group" aria-label="Ordenar por">
+      <button data-k="km">Kilómetros</button><button data-k="h">Horas</button><button data-k="d">Desnivel</button>
+    </div>
+    <div class="tools"><input id="qa" type="search" placeholder="Buscar socio…" aria-label="Buscar socio en la clasificación anual"></div>
+    <div class="legend">Pulsa en un socio para ver su análisis. Pulsa en una columna para ordenar.</div>
+    <div class="tablebox">
+      <table id="tablaAnual">
+        <thead><tr>
+          <th data-k="pos">#</th><th data-k="n">Socio</th><th data-k="km">Km</th><th data-k="h">Horas</th><th data-k="d">Desnivel</th>
+          <th data-k="s">Salidas</th><th data-k="v">Vel. media</th><th data-k="mkm">m/km</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== SEMANA ===== -->
+  <section class="blk" id="semana">
+    <h2>Semana a semana</h2>
+    <div class="pills" id="weeks" role="group" aria-label="Elegir semana"></div>
+    <p class="note" id="weeknote"></p>
+    <div class="kpis" id="kpis"></div>
+    <h3 class="sub">Podios de la semana</h3>
+    <div class="podios" id="podios"></div>
+    <h3 class="sub">Clasificación semanal</h3>
+    <div class="tools"><input id="q" type="search" placeholder="Buscar socio…" aria-label="Buscar socio en la semana"></div>
+    <div class="tablebox">
+      <table id="tabla">
+        <thead><tr>
+          <th data-k="pos">#</th><th data-k="n">Socio</th><th data-k="km" aria-sort="descending">Distancia</th>
+          <th data-k="s">Salidas</th><th data-k="l">Más larga</th><th data-k="v">Vel. media</th><th data-k="d">Desnivel</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <h3 class="sub">Todos los socios</h3>
+    <div class="legend"><span class="chip on" style="padding:2px 8px">verde</span> = ha rodado en la semana elegida</div>
+    <div class="chips" id="socios"></div>
+  </section>
+
+  <!-- ===== ANÁLISIS ===== -->
+  <section class="blk" id="analisis">
+    <h2>Análisis por socio</h2>
+    <p class="note">Elige un socio para ver su temporada comparada con la media del club (socios con actividad en 2026).</p>
+    <div class="tools"><select id="selSocio" aria-label="Elegir socio"></select></div>
+    <div class="ficha" id="ficha"></div>
+  </section>
+
+  <footer>
+    Datos de Strava: clasificación semanal del club (lunes a domingo) y totales de ciclismo del año de cada perfil. Las horas son tiempo en movimiento.
+    Socios con el perfil oculto aparecen “sin datos”. Página privada para los socios del club.
+  </footer>
+</div>
+
+<script src="datos.js"></script>
+<script>
+const D = window.CLUB_DATOS;
+const $ = s => document.querySelector(s);
+const nf = (n,d=1) => n==null||isNaN(n) ? "—" : n.toLocaleString("es-ES",{minimumFractionDigits:d,maximumFractionDigits:d});
+const hm = min => min==null ? "—" : `${Math.floor(min/60).toLocaleString("es-ES")} h ${String(Math.round(min%60)).padStart(2,"0")} min`;
+const el = (tag, cls, txt) => { const e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e; };
+const fecha = iso => new Date(iso+"T12:00:00").toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"});
+
+/* ---------- Temporada ---------- */
+const DIAS = (new Date(D.TEMPORADA.hasta) - new Date(D.TEMPORADA.desde))/864e5 + 1;
+const SEMS = DIAS/7;
+const ANUAL = D.TEMPORADA.filas.map(([n,s,km,d,min])=>{
+  const ok = km!=null;
+  return {n, ok, s, km, d, min, h: ok? min/60 : null,
+    v: ok && min>0 ? km/(min/60) : null, mkm: ok && km>0 ? d/km : null};
+});
+const SOCIOS = ANUAL.map(r=>r.n);
+const ACTIVOS = ANUAL.filter(r=>r.ok && r.km>0);
+const rankDe = k => { const m=new Map(); [...ACTIVOS].sort((a,b)=>b[k]-a[k]).forEach((r,i)=>m.set(r.n,i+1)); return m; };
+const RK = {km:rankDe("km"), h:rankDe("h"), d:rankDe("d")};
+const media = k => { const xs=ACTIVOS.map(r=>r[k]).filter(x=>x!=null); return xs.reduce((a,b)=>a+b,0)/xs.length; };
+let metrica = "km", ordenA = {k:"km", asc:false};
+
+function pintarTemporada(){
+  $("#tempNote").textContent = `Del 1 de enero al ${fecha(D.TEMPORADA.hasta)} (${Math.round(SEMS)} semanas). Solo ciclismo (exterior y virtual).`;
+  const km=ACTIVOS.reduce((a,r)=>a+r.km,0), min=ACTIVOS.reduce((a,r)=>a+r.min,0), d=ACTIVOS.reduce((a,r)=>a+r.d,0);
+  const box=$("#kpisAnual"); box.innerHTML="";
+  [[nf(km,0)+" km","Kilómetros del club"],[nf(min/60,0)+" h","Horas sobre la bici"],[nf(d,0)+" m","Desnivel acumulado"],
+   [nf(d/8849,0)+" Everest","Equivale a subir el Everest"],[`${ACTIVOS.length} / ${SOCIOS.length}`,"Socios con actividad en 2026"]]
+  .forEach(([v,t])=>{const k=el("div","kpi"); k.append(el("b",null,v), el("span",null,t)); box.append(k);});
+  const pod=$("#podiosAnual"); pod.innerHTML="";
+  [["Kilómetros","km",r=>nf(r.km,0)+" km"],["Horas","h",r=>hm(r.min)],["Desnivel","d",r=>nf(r.d,0)+" m"]].forEach(([t,k,f])=>{
+    const c=el("div","podio"); c.append(el("h4",null,t)); const ol=el("ol");
+    [...ACTIVOS].sort((a,b)=>b[k]-a[k]).slice(0,3).forEach((r,i)=>{const li=el("li"); li.append(el("span","medal m"+(i+1),i+1), el("span","n",r.n), el("span","v",f(r))); ol.append(li);});
+    c.append(ol); pod.append(c);
+  });
+  pintarTablaAnual();
+}
+
+function pintarTablaAnual(){
+  document.querySelectorAll("#metrica button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.k===metrica));
+  const q=$("#qa").value.trim().toLowerCase();
+  const pos=RK[metrica];
+  const max=Math.max(...ACTIVOS.map(r=>r[metrica]));
+  const filas=ANUAL.map(r=>({...r,pos:pos.get(r.n)??null}))
+    .filter(r=>r.n.toLowerCase().includes(q))
+    .sort((a,b)=>{const x=a[ordenA.k],y=b[ordenA.k];
+      if(ordenA.k==="n") return ordenA.asc? x.localeCompare(y,"es"):y.localeCompare(x,"es");
+      const X=x??(ordenA.asc?Infinity:-Infinity), Y=y??(ordenA.asc?Infinity:-Infinity); return ordenA.asc? X-Y : Y-X;});
+  const tb=$("#tablaAnual tbody"); tb.innerHTML="";
+  filas.forEach(r=>{
+    const tr=el("tr"); tr.onclick=()=>verSocio(r.n,true);
+    const celda=(k,txt)=>{const td=el("td",k===metrica?"main":null); if(k===metrica&&r.ok&&r[k]>0){const b=el("span","bar"); b.style.width=Math.round(r[k]/max*70)+"px"; td.append(b);} td.append(document.createTextNode(txt)); return td;};
+    const nom=el("td",null,r.n);
+    if(!r.ok) nom.append(el("span","tag o","sin datos")); else if(r.km===0) nom.append(el("span","tag o","sin actividad"));
+    tr.append(el("td",null,r.pos??"–"), nom,
+      celda("km", r.ok? nf(r.km,0)+" km":"—"), celda("h", r.ok? hm(r.min):"—"), celda("d", r.ok? nf(r.d,0)+" m":"—"),
+      el("td",null,r.ok? r.s:"—"), el("td",null,r.v? nf(r.v)+" km/h":"—"), el("td",null,r.mkm? nf(r.mkm):"—"));
+    tb.append(tr);
+  });
+  document.querySelectorAll("#tablaAnual th").forEach(th=>{th.removeAttribute("aria-sort"); if(th.dataset.k===ordenA.k) th.setAttribute("aria-sort", ordenA.asc?"ascending":"descending");});
+}
+
+/* ---------- Semana ---------- */
+let semana = D.SEMANAS.find(s=>s.completa) || D.SEMANAS[0];
+let orden = {k:"km", asc:false};
+const filasSemana = s => s.filas.map(f=>({n:f[0],km:f[1],s:f[2],l:f[3],v:f[4],d:f[5]})).sort((a,b)=>b.km-a.km).map((r,i)=>({...r,pos:i+1}));
+
+function pintarSemana(){
+  const rs=filasSemana(semana);
+  const wb=$("#weeks"); wb.innerHTML="";
+  D.SEMANAS.forEach(s=>{const b=el("button",null,`${s.etiqueta} · ${s.rango}`); b.setAttribute("aria-pressed", s===semana); b.onclick=()=>{semana=s; pintarSemana();}; wb.append(b);});
+  $("#weeknote").textContent = semana.completa ? `Semana completa del ${semana.rango}.` : `Semana en curso (${semana.rango}): datos parciales a ${fecha(D.ACTUALIZADO)}.`;
+  const km=rs.reduce((a,r)=>a+r.km,0), d=rs.reduce((a,r)=>a+(r.d||0),0), s=rs.reduce((a,r)=>a+r.s,0);
+  const box=$("#kpis"); box.innerHTML="";
+  [[nf(km,0)+" km","Distancia total"],[`${rs.length} / ${SOCIOS.length}`,"Socios que han rodado"],[nf(d,0)+" m","Desnivel"],[s,"Salidas"],[nf(rs.length?km/rs.length:0,0)+" km","Media por socio activo"]]
+  .forEach(([v,t])=>{const k=el("div","kpi"); k.append(el("b",null,v), el("span",null,t)); box.append(k);});
+  const pod=$("#podios"); pod.innerHTML="";
+  [["Distancia","km",r=>nf(r.km)+" km"],["Salida más larga","l",r=>nf(r.l)+" km"],["Desnivel","d",r=>nf(r.d,0)+" m"]].forEach(([t,k,f])=>{
+    const c=el("div","podio"); c.append(el("h4",null,t)); const ol=el("ol");
+    [...rs].filter(r=>r[k]!=null).sort((a,b)=>b[k]-a[k]).slice(0,3).forEach((r,i)=>{const li=el("li"); li.append(el("span","medal m"+(i+1),i+1), el("span","n",r.n), el("span","v",f(r))); ol.append(li);});
+    c.append(ol); pod.append(c);
+  });
+  pintarTablaSemana();
+  const act=new Set(rs.map(r=>r.n)); const ch=$("#socios"); ch.innerHTML="";
+  [...SOCIOS].sort((a,b)=>a.localeCompare(b,"es",{sensitivity:"base"})).forEach(n=>ch.append(el("span","chip"+(act.has(n)?" on":""),n)));
+}
+
+function pintarTablaSemana(){
+  const rs=filasSemana(semana), q=$("#q").value.trim().toLowerCase(), max=Math.max(...rs.map(r=>r.km),1);
+  const lista=rs.filter(r=>r.n.toLowerCase().includes(q)).sort((a,b)=>{const x=a[orden.k],y=b[orden.k];
+    if(typeof x==="string") return orden.asc? x.localeCompare(y,"es"):y.localeCompare(x,"es"); return orden.asc? (x??-1)-(y??-1) : (y??-1)-(x??-1);});
+  const tb=$("#tabla tbody"); tb.innerHTML="";
+  lista.forEach(r=>{
+    const tr=el("tr"), kmTd=el("td","main"), bar=el("span","bar"); bar.style.width=Math.round(r.km/max*70)+"px";
+    kmTd.append(bar, document.createTextNode(nf(r.km)+" km"));
+    tr.append(el("td",null,r.pos), el("td",null,r.n), kmTd, el("td",null,r.s), el("td",null,nf(r.l)+" km"), el("td",null,nf(r.v)+" km/h"), el("td",null,r.d==null?"—":nf(r.d,0)+" m"));
+    tb.append(tr);
+  });
+  if(!lista.length){const tr=el("tr"),td=el("td",null,"Nadie con ese nombre ha rodado esta semana."); td.colSpan=7; td.style.textAlign="center"; tr.append(td); tb.append(tr);}
+  document.querySelectorAll("#tabla th").forEach(th=>{th.removeAttribute("aria-sort"); if(th.dataset.k===orden.k) th.setAttribute("aria-sort", orden.asc?"ascending":"descending");});
+}
+
+/* ---------- Análisis ---------- */
+const ultimaCompleta = D.SEMANAS.find(s=>s.completa);
+const M = {kmS:media("km")/SEMS, hS:media("h")/SEMS, sS:media("s")/SEMS, v:media("v"), mkm:media("mkm"), kmSal:ACTIVOS.reduce((a,r)=>a+r.km,0)/ACTIVOS.reduce((a,r)=>a+r.s,0)};
+const MAXC = {kmS:Math.max(...ACTIVOS.map(r=>r.km/SEMS)), hS:Math.max(...ACTIVOS.map(r=>r.h/SEMS)), sS:Math.max(...ACTIVOS.map(r=>r.s/SEMS)), v:Math.max(...ACTIVOS.map(r=>r.v)), mkm:Math.max(...ACTIVOS.map(r=>r.mkm)), kmSal:Math.max(...ACTIVOS.map(r=>r.km/r.s))};
+
+function perfil(r){
+  const t=[];
+  if(r.mkm>=10) t.push("Escalador"); else if(r.mkm<6.5) t.push("Rodador de llano"); else t.push("Completo");
+  if(r.v>=29) t.push("Rápido");
+  const sS=r.s/SEMS; if(sS>=4) t.push("Muy constante"); else if(sS<1.5) t.push("Ocasional");
+  if(r.km/r.s>=70) t.push("Fondista");
+  return t;
+}
+
+function verSocio(n, scroll){
+  $("#selSocio").value=n;
+  const r=ANUAL.find(x=>x.n===n), f=$("#ficha"); f.innerHTML="";
+  f.append(el("h4",null,n));
+  if(!r.ok){ f.append(el("p",null,"Su perfil de Strava no deja ver sus estadísticas, así que no aparece en las clasificaciones del año.")); if(scroll) $("#analisis").scrollIntoView({behavior:"smooth"}); return; }
+  if(r.km===0){ f.append(el("p",null,"No tiene salidas en bici registradas en Strava en 2026.")); if(scroll) $("#analisis").scrollIntoView({behavior:"smooth"}); return; }
+  const tags=el("div"); perfil(r).forEach((t,i)=>tags.append(el("span","tag"+(i? "":" o"),t))); f.append(tags);
+  const N=ACTIVOS.length, ranks=el("div","ranks");
+  [["km",nf(r.km,0)+" km","en kilómetros"],["h",hm(r.min),"en horas"],["d",nf(r.d,0)+" m","en desnivel"]].forEach(([k,v,t])=>{
+    const c=el("div","rank"); c.append(el("b",null,"#"+RK[k].get(n)), el("span",null," "+v), el("small",null,`${t} de ${N} socios`)); ranks.append(c);
+  });
+  f.append(ranks);
+  const yo={kmS:r.km/SEMS, hS:r.h/SEMS, sS:r.s/SEMS, v:r.v, mkm:r.mkm, kmSal:r.km/r.s};
+  const cmp=el("div","cmp");
+  [["Km por semana","kmS",x=>nf(x,0)+" km"],["Horas por semana","hS",x=>nf(x,1)+" h"],["Salidas por semana","sS",x=>nf(x,1)],
+   ["Km por salida","kmSal",x=>nf(x,0)+" km"],["Velocidad media","v",x=>nf(x,1)+" km/h"],["Desnivel por km","mkm",x=>nf(x,1)+" m"]].forEach(([t,k,fmt])=>{
+    const row=el("div","row"), tr=el("div","track"), fi=el("div","fill"), av=el("div","avg");
+    fi.style.width=Math.min(100,yo[k]/MAXC[k]*100)+"%"; av.style.left=Math.min(100,M[k]/MAXC[k]*100)+"%"; av.title="Media del club: "+fmt(M[k]);
+    tr.append(fi,av); row.append(el("span",null,t), tr, el("span","val",fmt(yo[k]))); cmp.append(row);
+  });
+  f.append(cmp, el("div","legend","La barra verde es el socio; la raya negra, la media del club."));
+  // texto
+  const tx=el("div","texto"), ul=el("ul");
+  const pct=(a,b)=>Math.round((a/b-1)*100);
+  const dKm=pct(yo.kmS,M.kmS);
+  ul.append(el("li",null, `Volumen: ${nf(yo.kmS,0)} km/semana, un ${Math.abs(dKm)} % ${dKm>=0?"por encima":"por debajo"} de la media del club (${nf(M.kmS,0)} km).`));
+  ul.append(el("li",null, `Terreno: ${nf(r.mkm,1)} m de desnivel por km (club: ${nf(M.mkm,1)}). ${r.mkm>=10?"Busca la montaña: sus rutas tienen mucha subida.":r.mkm<6.5?"Rueda sobre todo por terreno llano o rompepiernas suave.":"Combina llano y subida en sus rutas."}`));
+  ul.append(el("li",null, `Ritmo: ${nf(r.v,1)} km/h de media (club: ${nf(M.v,1)}). ${r.v>=M.v+1.5?"Rueda claramente más rápido que la media.":r.v<=M.v-1.5?"Su ritmo es más tranquilo que la media.":"Ritmo en la línea del grupo."}`));
+  ul.append(el("li",null, `Constancia: ${nf(yo.sS,1)} salidas/semana de ${nf(yo.kmSal,0)} km de media. ${yo.sS>=4?"Muy regular durante la temporada.":yo.sS>=2?"Sale con regularidad.":"Sale de forma ocasional."}`));
+  if(ultimaCompleta){
+    const w=ultimaCompleta.filas.find(x=>x[0]===n);
+    if(w){ const p=pct(w[1],yo.kmS); ul.append(el("li",null, `Semana ${ultimaCompleta.rango}: ${nf(w[1],1)} km, ${Math.abs(p)} % ${p>=0?"por encima":"por debajo"} de su media semanal. ${p>=20?"Momento de forma alto.":p<=-20?"Semana más suave de lo habitual.":"Semana normal para él."}`)); }
+    else ul.append(el("li",null, `No registró salidas en la semana ${ultimaCompleta.rango}.`));
+  }
+  tx.append(el("p",null,"Resumen:"), ul); f.append(tx);
+  if(scroll) $("#analisis").scrollIntoView({behavior:"smooth"});
+}
+
+/* ---------- Arranque ---------- */
+$("#nsocios").textContent=SOCIOS.length; $("#upd1").textContent=fecha(D.ACTUALIZADO);
+document.querySelectorAll("#metrica button").forEach(b=>b.onclick=()=>{metrica=b.dataset.k; ordenA={k:metrica,asc:false}; pintarTablaAnual();});
+document.querySelectorAll("#tablaAnual th").forEach(th=>th.onclick=()=>{const k=th.dataset.k; if(["km","h","d"].includes(k)) metrica=k; ordenA={k, asc: ordenA.k===k ? !ordenA.asc : (k==="n"||k==="pos")}; pintarTablaAnual();});
+document.querySelectorAll("#tabla th").forEach(th=>th.onclick=()=>{const k=th.dataset.k; orden={k, asc: orden.k===k ? !orden.asc : (k==="n"||k==="pos")}; pintarTablaSemana();});
+$("#qa").oninput=pintarTablaAnual; $("#q").oninput=pintarTablaSemana;
+const sel=$("#selSocio");
+[...ANUAL].sort((a,b)=>(b.km??-1)-(a.km??-1)).forEach(r=>{const o=el("option",null,r.n); o.value=r.n; sel.append(o);});
+sel.onchange=()=>verSocio(sel.value,false);
+pintarTemporada(); pintarSemana(); verSocio(sel.options[0].value,false);
+</script>
+</body>
+</html>
