@@ -1,7 +1,8 @@
 /* Datos de la web del Club Ciclista La Palma (Strava, club 1094910).
    Se actualiza cada semana: se añade la semana cerrada al principio de SEMANAS,
    se sustituye "Esta semana" y se reescribe TEMPORADA con los totales del año.
-   Socios extra (del club pero fuera del club de Strava): Pedro Villegas Gil, Juanma Bernal, Moises Avila, Luis Carlos Espina, Juan Domingo López🇪🇦, Pedro Antonio Pérez Lepe, Luis Martinez. */
+   Socios extra (del club pero fuera del club de Strava): Pedro Villegas Gil, Juanma Bernal, Moises Avila, Luis Carlos Espina, Juan Domingo López🇪🇦, Pedro Antonio Pérez Lepe, Luis Martinez.
+   Excluidos (no deben salir nunca): "Juan Silva Medrano" (cuenta duplicada de "Juan Silva"). */
 window.CLUB_DATOS = {
   ACTUALIZADO: "2026-11-15",
   SEMANAS: [
@@ -61,7 +62,7 @@ window.CLUB_DATOS = {
       ["Rafael Marquez Sanchez",149,6808.8,69023,14694],["Gonzalo 🌬️",48,2819.6,26621,5826],["Manuel Del Toro",84,5222.5,45164,13268],
       ["Luis Carlos Espina",41,1985.0,13557,4239],["Antonio Lepe Rasgado",9,381.8,2646,883],["Luis Márquez",125,7398.3,58355,14595],
       ["Estivenson Romero Polanco",28,1462.6,13662,3960],["Mario Luis Pérez Medrano",224,22004.8,173952,46240],["Ramon Sanchez",57,4063.4,26938,9515],
-      ["Jorge Chirino Sosa",45,1170.4,10395,5325],["Juan Silva",177,9621.1,100395,19313],["Juan Silva Medrano",null,null,null,null],
+      ["Jorge Chirino Sosa",45,1170.4,10395,5325],["Juan Silva",177,9621.1,100395,19313],
       ["Rubén Cepeda Lepe",298,14238.8,144176,29732],["Gonzalo Mogorron",130,7610.1,76372,15853],["Álvaro Félix",131,7449.3,64980,15366],
       ["Gustavo Melado Mairena",114,6624.8,60388,13168],["Juan Domingo López🇪🇦",276,9818.0,67705,22819],["Jose Diago silva",16,1270.8,9477,2539],
       ["Antonio Jesús Cordero Bustamante",99,6346.8,47996,15042],["Pedro Antonio Pérez Lepe",203,11030.6,98618,21169],["Luis Martinez",50,2812.0,26383,6332]

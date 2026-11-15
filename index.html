@@ -194,6 +194,10 @@ const fecha = iso => new Date(iso+"T12:00:00").toLocaleDateString("es-ES",{day:"
 /* ---------- Temporada ---------- */
 const DIAS = (new Date(D.TEMPORADA.hasta) - new Date(D.TEMPORADA.desde))/864e5 + 1;
 const SEMS = DIAS/7;
+/* Cuentas que no deben aparecer (duplicados de otro socio) */
+const EXCLUIDOS = new Set(["Juan Silva Medrano"]);
+D.TEMPORADA.filas = D.TEMPORADA.filas.filter(f=>!EXCLUIDOS.has(f[0]));
+D.SEMANAS.forEach(s=>{ if (s.filas) s.filas = s.filas.filter(f=>!EXCLUIDOS.has(f[0])); });
 const ANUAL = D.TEMPORADA.filas.map(([n,s,km,d,min])=>{
   const ok = km!=null;
   return {n, ok, s, km, d, min, h: ok? min/60 : null,
