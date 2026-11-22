@@ -4,9 +4,25 @@
    Socios extra (del club pero fuera del club de Strava): Pedro Villegas Gil, Juanma Bernal, Moises Avila, Luis Carlos Espina, Juan Domingo López🇪🇦, Pedro Antonio Pérez Lepe, Luis Martinez.
    Excluidos (no deben salir nunca): "Juan Silva Medrano" (cuenta duplicada de "Juan Silva"). */
 window.CLUB_DATOS = {
-  ACTUALIZADO: "2026-11-15",
+  ACTUALIZADO: "2026-11-22",
   SEMANAS: [
-    { id:"2026-11-09", etiqueta:"Semana pasada", rango:"9–15 nov 2026", completa:true, filas:[
+    { id:"2026-11-16", etiqueta:"Semana pasada", rango:"16–22 nov 2026", completa:true, filas:[
+      ["David Gil 🇪🇸",500.3,6,111.1,30.2,5705],["Mario Luis Pérez Medrano",429.5,4,118.2,28.4,4809],["Pau González",410.9,7,133.4,30.7,2768],
+      ["Rubén Cepeda Lepe",365.7,6,117.5,27.6,3151],["Juan Domingo López🇪🇦",340.6,10,null,24.8,2136],["Antonio Lorenzo Guerrero",311.1,5,108.1,30.3,2365],
+      ["José Carlos Marroco Jaen",275.8,4,110.0,29.0,3108],["Pedro Antonio Pérez Lepe",272.5,3,null,27.3,4396],["Juan Manuel Medrano",262.0,4,105.2,30.1,2649],
+      ["José Francisco Suárez García",259.1,3,90.2,25.2,1436],["Javier Pavón Millán",252.0,4,117.1,26.3,2369],["Luis Carlos Espina",243.5,5,null,30.6,1625],
+      ["Miguel Mendez Garcia",226.1,3,97.4,31.1,1871],["Emilio Martin Ramirez",221.2,3,110.3,30.7,2468],["Rafael Marquez Sanchez",203.8,3,134.1,27.3,3233],
+      ["Juan Silva",197.4,4,100.5,26.6,2694],["Alfonso Barneto",185.7,3,86.0,30.1,1679],["Paco Ligero Martinez",177.6,4,85.9,32.3,987],
+      ["Juan Manuel Valdayo Merchante",176.8,3,85.6,30.5,1222],["Juan Delgado",176.0,9,24.1,29.3,441],["Luis Márquez",174.4,3,82.5,29.3,1481],
+      ["Enrique Jerez",173.1,3,79.1,30.4,1223],["Ramon Sanchez",167.9,2,88.7,25.7,1020],["Jose Pichardo",164.6,2,83.9,31.9,1383],
+      ["Jose Luis Gomez Galan",150.4,2,107.5,27.5,2056],["Antonio Jesús Cordero Bustamante",137.2,2,87.6,24.0,798],["Nacho Sotelo",136.0,2,85.9,30.8,1210],
+      ["Gonzalo 🌬️",132.7,3,49.4,30.9,1324],["Juan Manuel Fidalgo",126.5,2,81.4,26.8,1159],["Manuel Del Toro",125.4,2,82.7,24.4,962],
+      ["Antonio Pichardo 🇪🇸",125.2,2,81.9,28.7,1166],["Miguel Lepe",111.0,2,60.6,32.3,376],["Jose Antonio Mairena",105.9,3,105.9,18.1,791],
+      ["Gustavo Melado Mairena",96.4,2,50.0,29.0,1180],["Alejandro Espina Rosado",81.5,1,81.5,23.9,1421],["José Ángel Perez Lepe",68.2,5,32.0,37.1,639],
+      ["Pedro Villegas Gil",64.9,1,null,18.3,501],["Miguel Diaz",52.4,1,52.4,33.5,221],["David Jiménez Ramos",52.0,1,52.0,28.6,564],
+      ["Moises Avila",47.9,1,null,14.5,367],["Fernando Gonzalez",12.1,1,12.1,30.5,3]
+    ]},
+    { id:"2026-11-09", etiqueta:"Semana del 9–15 nov", rango:"9–15 nov 2026", completa:true, filas:[
       ["Pau González",347.9,5,116.3,35.4,2015],["Rubén Cepeda Lepe",306.2,5,103.0,25.6,3570],["José Carlos Marroco Jaen",293.0,6,135.5,27.9,2954],
       ["Rafael Marquez Sanchez",254.0,5,150.1,30.9,1823],["Antonio Jesús Cordero Bustamante",252.7,4,87.3,23.8,1319],["Mario Luis Pérez Medrano",249.6,2,127.1,29.0,2432],
       ["Paco Ligero Martinez",222.4,4,96.1,30.7,1908],["Miguel Mendez Garcia",205.3,2,111.4,30.0,1868],["Gonzalo 🌬️",196.9,3,96.7,30.4,1968],
@@ -39,32 +55,32 @@ window.CLUB_DATOS = {
     ]}
   ],
   /* Totales de ciclismo del 1 de enero hasta la fecha: [nombre, salidas, km, desnivel_m, minutos]. null = perfil sin datos visibles */
-  TEMPORADA: { desde:"2026-01-01", hasta:"2026-11-15", filas:[
-      ["manuel ligero Martínez",52,2437.5,20139,6003],["Pedro Villegas Gil",68,3595.5,31877,11041],["Jose Pichardo",298,14563.6,136743,27378],
-      ["Ismael Jarillo",2,137.7,1076,245],["Antonio Lorenzo Guerrero",172,9443.9,61359,19259],["Jose Luis Gomez Galan",54,2484.5,26469,5169],
-      ["Jose Luis Garcia",35,740.1,1333,2379],["David Gil 🇪🇸",225,14769.3,158907,30191],["Juanma Bernal",null,null,null,null],
-      ["Fernando Gonzalez",58,3584.0,31950,7640],["David Jiménez Ramos",38,1404.3,12027,3344],["Antonio Lopez",74,3044.7,25247,6898],
-      ["Jose Luis Infante",0,0.0,0,0],["Juan Manuel Valdayo Merchante",58,3141.9,22275,6536],["Alejandro Espina Rosado",102,7759.1,79260,17928],
-      ["Miguel Lepe",133,10172.0,64983,23547],["Miguel Diaz",142,8408.7,66858,18031],["Diego Jesus Gil",91,7314.1,66453,16833],
-      ["Pablo Gil",153,8380.9,78704,18365],["Ignacio García",14,517.2,4015,1149],["Pau González",246,17093.2,131017,34543],
-      ["Paco Ligero Martinez",194,10816.8,77424,20784],["Justi Cobo Diaz",0,0.0,0,0],["Ale Madrid",0,0.0,0,0],
-      ["Javier Pavón Millán",182,12538.8,116013,27894],["Pedro Avila Solis",11,674.3,5027,1613],["Moises Avila",31,1701.2,12662,5968],
-      ["Petri Perez Bebian",0,0.0,0,0],["Juan Manuel Medrano",208,10740.9,99517,21302],["Juan Delgado",310,13071.9,132344,31679],
-      ["jose angel ramos martin",41,2711.6,21671,6402],["Nacho Sotelo",145,9420.2,74478,18697],["Mario Muñoz Artillo",45,1250.9,10539,2962],
-      ["Manuel Fernández Ramírez",72,4265.2,35520,8589],["Daniel Del Toro Navarro",33,1835.6,12956,3680],["Aurelio Guerra",3,286.5,970,606],
-      ["José Antonio Palacio Serrano",136,3732.5,37289,8636],["Jose Antonio Mairena",214,11863.5,85106,29330],["Emilio Martin Ramirez",108,7234.7,72609,14901],
-      ["Juan Manuel Fidalgo",93,4993.4,34248,11062],["JUAN DIEGO LEPE GUTIÉRREZ",null,null,null,null],["Miguel Mendez Garcia",40,3620.9,32484,6974],
-      ["Enrique Jerez",112,6292.2,50355,14042],["Javier Dabrio Soldán",0,0.0,0,0],["José Carlos Marroco Jaen",217,12842.4,125722,25977],
+  TEMPORADA: { desde:"2026-01-01", hasta:"2026-11-22", filas:[
+      ["manuel ligero Martínez",52,2437.5,20139,6003],["Pedro Villegas Gil",69,3660.4,32378,11254],["Jose Pichardo",300,14728.2,138126,27688],
+      ["Ismael Jarillo",2,137.7,1076,245],["Antonio Lorenzo Guerrero",178,9788.6,63724,19935],["Jose Luis Gomez Galan",56,2634.9,28525,5497],
+      ["Jose Luis Garcia",35,740.1,1333,2379],["David Gil 🇪🇸",231,15269.6,164612,31186],["Juanma Bernal",null,null,null,null],
+      ["Fernando Gonzalez",59,3596.0,31953,7664],["David Jiménez Ramos",39,1456.3,12591,3453],["Antonio Lopez",74,3044.7,25247,6898],
+      ["Jose Luis Infante",0,0.0,0,0],["Juan Manuel Valdayo Merchante",61,3318.7,23497,6884],["Alejandro Espina Rosado",103,7840.6,80680,18132],
+      ["Miguel Lepe",135,10283.0,65359,23753],["Miguel Diaz",145,8600.1,67979,18418],["Diego Jesus Gil",91,7314.1,66453,16833],
+      ["Pablo Gil",153,8380.9,78704,18365],["Ignacio García",14,517.2,4015,1149],["Pau González",253,17504.1,133785,35346],
+      ["Paco Ligero Martinez",198,10994.4,78411,21114],["Justi Cobo Diaz",0,0.0,0,0],["Ale Madrid",0,0.0,0,0],
+      ["Javier Pavón Millán",187,12833.1,118527,28568],["Pedro Avila Solis",11,674.3,5027,1613],["Moises Avila",32,1749.1,13029,6166],
+      ["Petri Perez Bebian",0,0.0,0,0],["Juan Manuel Medrano",212,11002.9,102166,21825],["Juan Delgado",319,13247.9,132785,32039],
+      ["jose angel ramos martin",41,2711.6,21671,6402],["Nacho Sotelo",147,9556.2,75688,18962],["Mario Muñoz Artillo",45,1250.9,10539,2962],
+      ["Manuel Fernández Ramírez",72,4265.2,35520,8589],["Daniel Del Toro Navarro",34,1878.8,13440,3766],["Aurelio Guerra",3,286.5,970,606],
+      ["José Antonio Palacio Serrano",136,3732.5,37289,8636],["Jose Antonio Mairena",217,11969.4,85897,29682],["Emilio Martin Ramirez",111,7455.9,75077,15334],
+      ["Juan Manuel Fidalgo",95,5119.9,35407,11346],["JUAN DIEGO LEPE GUTIÉRREZ",null,null,null,null],["Miguel Mendez Garcia",43,3846.9,34355,7410],
+      ["Enrique Jerez",115,6465.3,51578,14384],["Javier Dabrio Soldán",0,0.0,0,0],["José Carlos Marroco Jaen",221,13118.2,128830,26548],
       ["Fran Merchante",82,5522.1,55187,12284],["Santi Gil🇪🇸",137,9659.5,82933,20452],["Victoria Teba",0,0.0,0,0],
-      ["David Gil Jiménez",43,1966.6,19470,4578],["Ezequiel DP",0,0.0,0,0],["Alfonso Barneto",150,8423.5,65617,18307],
-      ["Luis Barneto",12,529.2,5876,1250],["José Ángel Perez Lepe",87,4991.4,49654,10201],["Daniel Diaz",24,875.3,9490,2334],
-      ["José Francisco Suárez García",122,9447.7,63248,21938],["Juan Enrique Nieto Julián",51,2386.0,22303,6821],["Antonio Pichardo 🇪🇸",54,2656.5,23467,6051],
-      ["Rafael Marquez Sanchez",149,6808.8,69023,14694],["Gonzalo 🌬️",48,2819.6,26621,5826],["Manuel Del Toro",84,5222.5,45164,13268],
-      ["Luis Carlos Espina",41,1985.0,13557,4239],["Antonio Lepe Rasgado",9,381.8,2646,883],["Luis Márquez",125,7398.3,58355,14595],
-      ["Estivenson Romero Polanco",28,1462.6,13662,3960],["Mario Luis Pérez Medrano",224,22004.8,173952,46240],["Ramon Sanchez",57,4063.4,26938,9515],
-      ["Jorge Chirino Sosa",45,1170.4,10395,5325],["Juan Silva",177,9621.1,100395,19313],
-      ["Rubén Cepeda Lepe",298,14238.8,144176,29732],["Gonzalo Mogorron",130,7610.1,76372,15853],["Álvaro Félix",131,7449.3,64980,15366],
-      ["Gustavo Melado Mairena",114,6624.8,60388,13168],["Juan Domingo López🇪🇦",276,9818.0,67705,22819],["Jose Diago silva",16,1270.8,9477,2539],
-      ["Antonio Jesús Cordero Bustamante",99,6346.8,47996,15042],["Pedro Antonio Pérez Lepe",203,11030.6,98618,21169],["Luis Martinez",50,2812.0,26383,6332]
+      ["David Gil Jiménez",43,1966.6,19470,4578],["Ezequiel DP",0,0.0,0,0],["Alfonso Barneto",153,8609.2,67296,18677],
+      ["Luis Barneto",12,529.2,5876,1250],["José Ángel Perez Lepe",92,5059.7,50293,10311],["Daniel Diaz",24,875.3,9490,2334],
+      ["José Francisco Suárez García",125,9706.7,64684,22555],["Juan Enrique Nieto Julián",51,2386.0,22303,6821],["Antonio Pichardo 🇪🇸",56,2781.7,24633,6313],
+      ["Rafael Marquez Sanchez",152,7012.6,72256,15142],["Gonzalo 🌬️",51,2952.3,27944,6084],["Manuel Del Toro",86,5347.9,46126,13576],
+      ["Luis Carlos Espina",46,2228.5,15182,4716],["Antonio Lepe Rasgado",9,381.8,2646,883],["Luis Márquez",128,7572.7,59836,14953],
+      ["Estivenson Romero Polanco",28,1462.6,13662,3960],["Mario Luis Pérez Medrano",228,22434.3,178761,47147],["Ramon Sanchez",59,4231.3,27958,9907],
+      ["Jorge Chirino Sosa",45,1170.4,10395,5325],["Juan Silva",181,9818.5,103089,19758],["Rubén Cepeda Lepe",304,14604.5,147327,30526],
+      ["Gonzalo Mogorron",130,7610.1,76372,15853],["Álvaro Félix",131,7449.3,64980,15366],["Gustavo Melado Mairena",116,6721.2,61568,13368],
+      ["Juan Domingo López🇪🇦",286,10158.6,69841,23643],["Jose Diago silva",16,1270.8,9477,2539],["Antonio Jesús Cordero Bustamante",101,6484.0,48793,15385],
+      ["Pedro Antonio Pérez Lepe",206,11303.1,103014,21767],["Luis Martinez",50,2812.0,26383,6332]
   ]}
 };
